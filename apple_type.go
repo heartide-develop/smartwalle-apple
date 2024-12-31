@@ -55,6 +55,14 @@ const (
 	OfferTypeSubscription OfferType = 3
 )
 
+type offerDiscountType string
+
+const (
+	OfferDiscountTypeFreeTrial  offerDiscountType = "FREE_TRIAL"
+	OfferDiscountTypePayAsYouGo offerDiscountType = "PAY_AS_YOU_GO"
+	OfferDiscountTypePayUpFront offerDiscountType = "PAY_UP_FRONT"
+)
+
 type TransactionType string
 
 const (
@@ -92,6 +100,9 @@ type Transaction struct {
 	Storefront                  string             `json:"storefront"`
 	StorefrontId                string             `json:"storefrontId"`
 	TransactionReason           string             `json:"transactionReason"`
+	OfferDiscountType           offerDiscountType  `json:"offerDiscountType"`
+	Price                       int64              `json:"price"`
+	Currency                    string             `json:"currency"`
 }
 
 type SignedRenewal string
@@ -119,18 +130,21 @@ const (
 // https://developer.apple.com/documentation/appstoreservernotifications/jwsrenewalinfodecodedpayload
 type Renewal struct {
 	jwt.RegisteredClaims
-	AutoRenewProductId          string          `json:"autoRenewProductId"`
-	AutoRenewStatus             AutoRenewStatus `json:"autoRenewStatus"`
-	Environment                 Environment     `json:"environment"`
-	ExpirationIntent            int             `json:"expirationIntent"`
-	GracePeriodExpiresDate      int64           `json:"gracePeriodExpiresDate"`
-	IsInBillingRetryPeriod      bool            `json:"isInBillingRetryPeriod"`
-	OfferIdentifier             string          `json:"offerIdentifier"`
-	OfferType                   OfferType       `json:"offerType"`
-	OriginalTransactionId       string          `json:"originalTransactionId"`
-	PriceIncreaseStatus         int             `json:"priceIncreaseStatus"`
-	ProductId                   string          `json:"productId"`
-	RecentSubscriptionStartDate int64           `json:"recentSubscriptionStartDate"`
-	RenewalDate                 int64           `json:"renewalDate"`
-	SignedDate                  int64           `json:"signedDate"`
+	AutoRenewProductId          string            `json:"autoRenewProductId"`
+	AutoRenewStatus             AutoRenewStatus   `json:"autoRenewStatus"`
+	Environment                 Environment       `json:"environment"`
+	ExpirationIntent            int               `json:"expirationIntent"`
+	GracePeriodExpiresDate      int64             `json:"gracePeriodExpiresDate"`
+	IsInBillingRetryPeriod      bool              `json:"isInBillingRetryPeriod"`
+	OfferIdentifier             string            `json:"offerIdentifier"`
+	OfferType                   OfferType         `json:"offerType"`
+	OriginalTransactionId       string            `json:"originalTransactionId"`
+	PriceIncreaseStatus         int               `json:"priceIncreaseStatus"`
+	ProductId                   string            `json:"productId"`
+	RecentSubscriptionStartDate int64             `json:"recentSubscriptionStartDate"`
+	RenewalDate                 int64             `json:"renewalDate"`
+	SignedDate                  int64             `json:"signedDate"`
+	OfferDiscountType           offerDiscountType `json:"offerDiscountType"`
+	RenewalPrice                int64             `json:"renewalPrice"`
+	Currency                    string            `json:"currency"`
 }
